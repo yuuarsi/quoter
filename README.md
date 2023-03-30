@@ -13,7 +13,7 @@ Make it a quote bot for discord.
 - python >= 3.8
 
 ```python
-pip install -r requirments
+pip install -r requirements.txt
 ```
 
 
