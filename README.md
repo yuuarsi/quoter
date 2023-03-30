@@ -33,7 +33,10 @@ Or replace it with the one you like.
 `ReplyChannel` : Discord channel ID, which channel should bot reply to.  
 `ReplyTrigger` : Reply every X ~ X+50 messages.
 
-  
+### 4. Run
+```
+python client.py
+```
 
 # Credits
 
