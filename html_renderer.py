@@ -7,7 +7,7 @@ from pathlib import Path
 import re
 from urllib.parse import quote_plus
 from emoji import unicode_codes
-from client import cfg
+from config import CONFIGS as cfg
 
 HTML_BODY = '''<body onload="resize_to_fit();">
   <div class="container">

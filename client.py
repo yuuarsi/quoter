@@ -1,26 +1,7 @@
 import discord
 from html_renderer import render, QUOTE_SAVE_PATH
+from config import CONFIGS as cfg
 import random
-import json
-
-DEFAULT_CONFIG = {
-    'Token': None,
-    'ChromePath': None,
-    'RandomReply': {
-        'Enable': False,
-        'StoreChannel': None,
-        'ReplyChannel': None,
-        'ReplyTrigger': 100
-    },    
-}
-
-try:
-    with open('config.json', 'r') as f:
-        cfg = json.load(f)
-        cfg.update(DEFAULT_CONFIG)
-except:
-    cfg = DEFAULT_CONFIG
-
 
 class MyClient(discord.Client):
     async def on_ready(self):
@@ -96,6 +77,3 @@ client.allowed_mentions = discord.AllowedMentions.none()
 client.allowed_mentions.replied_user = True
 
 client.run(cfg['Token'])
-
-with open('config.json', 'w') as f:
-    json.dump(cfg, f)
