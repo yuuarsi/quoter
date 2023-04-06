@@ -1,0 +1,6 @@
+.vscode
+saved_quotes
+src/discord_markdown/__pycache__
+fonts
+__pycache__
+configs.json
