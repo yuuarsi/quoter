@@ -1,0 +1,38 @@
+<body onload="resize_to_fit();">
+  <div class="container">
+    <img class="avatar" src="{icon}">
+    <img class="base_gd" src="{base_gd}">
+    <blockquote class="quote-card">{para}<cite>{nickname}</cite><aka>{name}</aka>
+    </blockquote>
+  </div>
+</body>
+<script>
+  const output1 = document.querySelectorAll('p');
+  const output2 = document.querySelector('cite');
+  const output3 = document.querySelector('aka');
+  const emoji = document.querySelectorAll('.emoji');
+  const outputContainer = document.querySelector('.quote-card');
+
+  function resize_to_fit(fontsize = 48) {{
+    let fontSize = fontsize;
+    let sum = 0;
+    output1.forEach(function (x) {{
+      sum += x.clientHeight;
+    }})
+    if (sum + output2.clientHeight + output3.clientHeight >= outputContainer.clientHeight) {{
+      style = (parseFloat(fontSize) - 1) + 'px';
+      output1.forEach(function (x) {{
+        x.style.fontSize = style;
+      }})   
+      emoji.forEach(function (x) {{
+        x.style.height = style;
+      }})
+      resize_to_fit(style);
+    }}
+    else {{
+        emoji.forEach(function (x) {{
+            x.style.paddingBottom = parseFloat(4 * Math.sqrt(fontSize / 48)) + 'px';
+        }})
+    }}
+  }}
+</script>
