@@ -1,0 +1,19 @@
+{
+    "Token": null,
+    "ChromePath": null,
+    "DefaultFont": {
+        "Name": "default.otf",
+        "Format": "opentype"
+    },
+    "FallbackFont": {
+        "Name": "fallback.ttf",
+        "Format": "truetype"
+    },
+    "PostChannel": null,
+    "RandomReply": {
+        "Enable": false,
+        "StoreChannel": null,
+        "ReplyChannel": null,
+        "ReplyTrigger": 100
+    }
+}

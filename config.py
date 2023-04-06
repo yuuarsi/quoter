@@ -3,29 +3,28 @@ import json
 CONFIGS = {
     'Token': None,
     'ChromePath': None,
+    'DefaultFont': {
+        'Name': 'default.otf',
+        'Format': 'opentype',    
+    },
+    'FallbackFont': {
+        'Name': 'fallback.ttf',
+        'Format': 'truetype',    
+    },
+    'PostChannel': None,
     'RandomReply': {
         'Enable': False,
         'StoreChannel': None,
         'ReplyChannel': None,
-        'ReplyTrigger': 100
-    },    
+        'ReplyTrigger': 100,
+    },
 }
+try:
+    with open('configs.json', 'r') as f:
+        cf = json.load(f)
+        CONFIGS.update(cf)
+except:
+    pass
 
-# try:
-with open('config.json', 'r') as f:
-    cf = json.load(f)
-    CONFIGS.update(cf)
-# except:
-#     CONFIGS = {
-#     'Token': None,
-#     'ChromePath': None,
-#     'RandomReply': {
-#         'Enable': False,
-#         'StoreChannel': None,
-#         'ReplyChannel': None,
-#         'ReplyTrigger': 100
-#     },    
-# }
-
-with open('config.json', 'w') as f:
-    json.dump(CONFIGS, f)
+with open('configs.json', 'w') as f:
+    json.dump(CONFIGS, f, indent=4)
