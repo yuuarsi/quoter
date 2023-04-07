@@ -1,11 +1,19 @@
 import discord
-from html_renderer import render, QUOTE_SAVE_PATH
+from html_renderer import render
 from config import CONFIGS as cfg
 import random
 
+if cfg['RandomReply']['Enable']:
+    from html_renderer import QUOTE_SAVE_PATH
 class MyClient(discord.Client):
     async def on_ready(self):
         print(f'Logged on as {self.user}!')
+        print('Initializing...')
+
+        try:
+            self.post_channel = client.get_channel(cfg['PostChannel'])
+        except:
+            self.post_channel = None
 
         if cfg['RandomReply']['Enable']:
             try:
@@ -16,6 +24,8 @@ class MyClient(discord.Client):
                 self.reply_trigger = random.randint(cfg['RandomReply']['ReplyTrigger'], cfg['RandomReply']['ReplyTrigger'] + 50)
             except:
                 cfg['RandomReply']['Enable'] = False
+        
+        print('Complete.')
 
     async def on_message(self, message: discord.Message):
         if not message.guild:
@@ -52,6 +62,11 @@ class MyClient(discord.Client):
             async with message.channel.typing():
                 img, id = render(author.name, author.discriminator, author.display_name, content, author.display_avatar.url)
                 await message.reply(file=discord.File(img, filename=f"{id}.png"))
+
+                if self.post_channel is not None:
+                    img.seek(0)
+                    await self.post_channel.send(f'{content} - {author.mention}', file=discord.File(img, filename=f"{id}.png"))
+
                 if cfg['RandomReply']['Enable']:
                     sent = await self.store_channel.send(f'ID: {id}\nContent: {content}\nAuthor: {author.mention}\nCreator: {message.author.mention}')
                     self.quotes_cache[sent.id] = sent
@@ -77,3 +92,19 @@ client.allowed_mentions = discord.AllowedMentions.none()
 client.allowed_mentions.replied_user = True
 
 client.run(cfg['Token'])
+
+# def restore_history():
+#     # post history quotes to quote channel
+#     lis = list(self.quotes_cache.items())
+#     lis.reverse()
+#     for _, value in lis:
+#         data = value.content.split('\n')
+#         id = data[0][4:]
+#         content = data[1][9:]
+#         author_id = data[2][10:-1]
+#         guild = client.get_guild(guild_id)
+#         author = guild.get_member(int(author_id))
+
+#         img, _ = render(author.name, author.discriminator, author.display_name, content, author.display_avatar.url)
+#         await self.post_channel.send(f'{content} - {author.mention}', file=discord.File(img, filename=f"{id}.png"))
+#         time.sleep(0.5)
