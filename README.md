@@ -49,6 +49,12 @@ Bot will save quotes, and randomly reply to message using them.
 ```
 python client.py
 ```
+Invite the bot with proper permissions:
+`View Channels`, `Send Messages`, `Send Messages in Threads`, `Embed Links`, `Attach Files`, `Read Message History`  
+Permissions bit: `274878024704`  
+
+Also you need to enable `SERVER MEMBERS INTENT` and `MESSAGE CONTENT INTENT`.
+
 Reply to a message then mentioning this bot.
 # Credits
 
