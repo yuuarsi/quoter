@@ -8,7 +8,7 @@ Make it a quote bot for discord.
 - Random reply
 
 # Installation
-### 1. Install Requirements
+## 1. Install Requirements
 - Any chromium browser
 - python >= 3.8
 
@@ -18,26 +18,44 @@ pip install -r requirements.txt
 
 
 
-### 2. Download Fonts
+## 2. Download Fonts
+The default font is [source-han-sans](https://github.com/adobe-fonts/source-han-sans), download and rename to `default.otf`, place under `/fonts`.  
+Or replace with the font you like.
 
-Get fonts from [source-han-sans](https://github.com/adobe-fonts/source-han-sans) and rename it to `SourceHanSansTC-Medium.otf`, place under `/fonts`.  
-Or replace it with the one you like.
+## 3. Configs
+Make sure to change the `configs.json` file.
 
-### 3. Config  
-  
+### Basic: 
+`Token` :  Your discord token here.  
+`ChromePath` : If bot can not found chrome on your machine you can manually set here.  
+`PostChannel` : Discord channel ID. Bot will record all quotes to this channel.
 
-`Token` : Your discord token here.  
-`ChromePath` : Manually set here if bot can't found it.  
-`RandomReply` : Bot will randomly reply using saved quotes.  
-`StoreChannel` : Discord channel ID, bot will save all quote's information here, delete message will exclude corresponding quote from random reply.  
-`ReplyChannel` : Discord channel ID, which channel should bot reply to.  
+### Font settings:
+Specify file name and its format. Place your font under `/fonts` folder.
+
+`DefaultFont` : Default font use to render the image,   
+`FallbackFont`: If there is any character default font can not display, fallback font specify here will try.  
+
+### Random Reply:
+Bot will save quotes, and randomly reply to message using them.
+
+`Enable` :  Enable this function.  
+`StoreChannel` : Discord channel ID. Bot will save all quote's information here, delete message will exclude corresponding quote from random reply.  
+`ReplyChannel` : Discord channel ID. Which channel should bot reply to.  
 `ReplyTrigger` : Reply every X ~ X+50 messages.
 
-### 4. Run
+
+# Usage
 ```
 python client.py
 ```
+Invite the bot with proper permissions:
+`View Channels`, `Send Messages`, `Send Messages in Threads`, `Embed Links`, `Attach Files`, `Read Message History`  
+Permissions bit: `274878024704`  
 
+Also you need to enable `SERVER MEMBERS INTENT` and `MESSAGE CONTENT INTENT`.
+
+Reply to a message then mentioning this bot.
 # Credits
 
 - [discord-markdown](https://github.com/bitjockey42/discord-markdown)  
