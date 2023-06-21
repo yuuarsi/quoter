@@ -1,4 +1,4 @@
-discord.py==2.2.2
-emoji==2.2.0
+discord.py==2.3.0
+emoji==2.5.1
 html2image==2.0.3
-Pillow==9.4.0
+Pillow==9.5.0

@@ -60,7 +60,7 @@ class MyClient(discord.Client):
             author = quote_msg.author
 
             async with message.channel.typing():
-                img, id = render(author.name, author.discriminator, author.display_name, content, author.display_avatar.url)
+                img, id = render(str(author), author.display_name, content, author.display_avatar.url)
                 await message.reply(file=discord.File(img, filename=f"{id}.png"))
 
                 if self.post_channel is not None:

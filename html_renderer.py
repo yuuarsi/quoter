@@ -31,7 +31,7 @@ except:
 
 hti = Html2Image(browser_executable=CHROME_PATH,
                  output_path=tempfile.gettempdir(),
-                 custom_flags=['--no-sandbox', '--disable-gpu', "--log-level=3"],
+                 custom_flags=['--no-sandbox', '--disable-gpu', "--log-level=3", "--hide-scrollbars"],
                  size=(800, 200),)
 
 if cfg['RandomReply']['Enable']:
@@ -47,8 +47,8 @@ def parse_emoji(content: str):
         result = result.replace(emoji, HTML_IMG_TEMPLATE.format(get_url(emoji)))
     return result
 
-def render(name, tag, nickname, content, icon):
-    name = f'@{name}#{tag}'
+def render(name, nickname, content, icon):
+    name = f'@{name}'
     nickname = f'- {nickname}'
     para = convert_to_html(content)   
     para = parse_emoji(para) 
