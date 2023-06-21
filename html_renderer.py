@@ -6,7 +6,7 @@ from uuid import uuid4
 from urllib.parse import quote_plus
 from emoji import unicode_codes
 from config import CONFIGS as cfg
-import tempfile, io, re
+import tempfile, io, re, os
 
 with open('body.html') as b:
     HTML_BODY = b.read()
@@ -59,6 +59,8 @@ def render(name, tag, nickname, content, icon):
     #     h.write(body)
     # with open('result.css', 'w', encoding='utf-8') as h:
     #     h.write(CSS)
+    temp_dir = os.environ['TMP'] if os.name == 'nt' else '/tmp'
+    Path.mkdir(Path(temp_dir, 'html2image'), exist_ok=True)
 
     file_name = str(uuid4())
     tp = hti.screenshot(html_str=body, css_str=CSS, save_as=file_name + '.png')
