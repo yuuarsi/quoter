@@ -13,9 +13,9 @@ Make it a quote bot for discord.
 - python >= 3.8
 
 ```python
-pip install -r requirements.txt
+pip install -U -r requirements.txt
 ```
-
+Make sure you have latest requirements.
 
 
 ## 2. Download Fonts
