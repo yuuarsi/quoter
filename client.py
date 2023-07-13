@@ -58,18 +58,42 @@ class MyClient(discord.Client):
                 return
 
             author = quote_msg.author
+            _no_save = False
+            _multi_msg = 1
+
+            cmd = message.content.split()
+            if len(cmd) > 1:
+                # cmd.pop(0)
+                # if cmd[0] == "n":
+                #     _no_save = True
+                #     cmd.pop(0)
+                if cmd[1].isdecimal():
+                    _multi_msg = int(cmd[1])
+                    if _multi_msg > 4:
+                        _multi_msg = 4
 
             async with message.channel.typing():
+                # collect multi message
+                if _multi_msg > 1:
+                    print('multi')
+                    async for msg in message.channel.history(limit=_multi_msg - 1, after=quote_msg):
+                        print(msg.content)
+                        if msg.author != author:
+                            break
+                        content = content + "\n" + msg.content
+
                 img, id = render(str(author), author.display_name, content, author.display_avatar.url)
                 await message.reply(file=discord.File(img, filename=f"{id}.png"))
 
-                if self.post_channel is not None:
-                    img.seek(0)
-                    await self.post_channel.send(f'{content} - {author.mention}', file=discord.File(img, filename=f"{id}.png"))
+                if not _no_save:
+                    print("save quote")
+                    if self.post_channel is not None:
+                        img.seek(0)
+                        await self.post_channel.send(f'{content} - {author.mention}', file=discord.File(img, filename=f"{id}.png"))
 
-                if cfg['RandomReply']['Enable']:
-                    sent = await self.store_channel.send(f'ID: {id}\nContent: {content}\nAuthor: {author.mention}\nCreator: {message.author.mention}')
-                    self.quotes_cache[sent.id] = sent
+                    if cfg['RandomReply']['Enable']:
+                        sent = await self.store_channel.send(f'ID: {id}\nContent: {content}\nAuthor: {author.mention}\nCreator: {message.author.mention}')
+                        self.quotes_cache[sent.id] = sent
 
     async def on_raw_message_delete(self, payload):
         if cfg['RandomReply']['Enable']:
