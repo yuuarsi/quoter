@@ -80,7 +80,9 @@ class MyClient(discord.Client):
                         print(msg.content)
                         if msg.author != author:
                             break
-                        content = content + "\n" + msg.content
+                        text = msg.clean_content
+                        if text != "":
+                            content = content + "\n" + text
 
                 img, id = render(str(author), author.display_name, content, author.display_avatar.url)
                 await message.reply(file=discord.File(img, filename=f"{id}.png"))
